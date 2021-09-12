@@ -6,6 +6,7 @@ import json
 from tqdm import tqdm
 import argparse
 
+from data import *
 
 def recursive_filter(input_file, recursive_filter, core):
 	df = pd.read_json(input_file, lines=True)
@@ -152,7 +153,7 @@ if __name__ == '__main__':
 	args=parser.parse_args()
 
 	build_dataset(args.input_file, args.output_dir, 'json')
-	df = pd.read_csv(os.path.join(args.input_dir, 'mf.csv'), header=None)
-	sample_generator = SampleGenerator(ratings=df, input_dir=args.input_dir)
+	df = pd.read_csv(os.path.join(args.output_dir, 'mf.csv'), header=None)
+	sample_generator = SampleGenerator(ratings=df, input_dir=args.output_dir)
 	sample_generator._sample_negative('train')
 	sample_generator._sample_negative('valid')
